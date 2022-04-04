@@ -28,6 +28,7 @@ function setup() {
     var video = createCapture(VIDEO);
     video.size(700, 600);
     video.parent("Camera");
+    video.hide()
     poseNet = ml5.poseNet(video, modelLoaded);
 }
 
