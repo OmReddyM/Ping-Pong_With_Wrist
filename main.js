@@ -22,10 +22,11 @@ var ball = {
     dx: 3,
     dy: 3
 }
+game_status = "";
 
 function setup() {
     var canvas = createCanvas(700, 600);
-    canvas.CENTER
+    canvas.center()
     canvas.parent("canvas");
     var video = createCapture(VIDEO);
     video.size(700, 600);
@@ -64,6 +65,8 @@ function draw() {
     fill("black");
     stroke("black");
     rect(0, 0, 20, 700);
+
+    
 
     //funtion paddleInCanvas call 
     paddleInCanvas();
