@@ -12,7 +12,8 @@ var score1 = 0, score2 = 0;
 var paddle1Y;
 
 var playerscore = 0;
-var audio1;
+var hitAudio;
+var missAudio;
 var pcscore = 0;
 //ball x and y and speedx speed y and radius
 var ball = {
@@ -23,6 +24,11 @@ var ball = {
     dy: 3
 }
 game_status = "";
+
+function preload(){
+    hitAudio = loadSound("ball_touch_paddel.wav")
+    missAudio = loadSound("missed.wav")
+}
 
 function setup() {
     var canvas = createCanvas(700, 600);
@@ -66,7 +72,7 @@ function draw() {
     stroke("black");
     rect(0, 0, 20, 700);
 
-    
+
 
     //funtion paddleInCanvas call 
     paddleInCanvas();
@@ -97,7 +103,12 @@ function draw() {
     move();
 }
 
-
+// function restart when restart button is clicked
+function restart(){
+    pcscore = 0;
+    playerscore = 0;
+    loop();
+}
 
 //function reset when ball does notcame in the contact of padde
 function reset() {
@@ -147,8 +158,10 @@ function move() {
     if (ball.x - 2.5 * ball.r / 2 < 0) {
         if (ball.y >= paddle1Y && ball.y <= paddle1Y + paddle1Height) {
             ball.dx = -ball.dx + 0.5;
+            hitAudio.play();
         }
         else {
+            missAudio.play();
             pcscore++;
             reset();
             navigator.vibrate(100);
@@ -162,7 +175,7 @@ function move() {
         stroke("white");
         textSize(25)
         text("Game Over!☹☹", width / 2, height / 2);
-        text("Reload The Page!", width / 2, height / 2 + 30)
+        text("Press the Restart Button!", width / 2, height / 2 + 30)
         noLoop();
         pcscore = 0;
     }
